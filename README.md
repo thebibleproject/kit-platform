@@ -1,5 +1,63 @@
 # Kit Platform (Take-Home Project)
 
+Thank you for taking the time to interview with the Platform Squad at
+BibleProject! In this project, you'll be presented with a fictional scenario for
+an e-learning company and be asked to design and implement a software solution
+for one of the company's new business initiatives. (The scenario is very similar
+to one we actually face at BibleProject, but we've changed some of the details
+to encourage you to feel free to be creative and not be overly constrained by
+the work we've already done.)
+
+## Scenario
+
+Suppose you work for an e-learning SaaS company called _Kit_. Kit provides
+corporate training for small and medium businesses around the world (90% of them
+are in the United States). Employees of your corporate clients are assigned
+training in the form of videos to watch, articles to read, and quizzes to fill
+out, and your software platform provides on-demand access to these resources and
+tracks user progress. Clients may supply their own videos and other resources,
+or they may choose from a stock set of resources maintained by your company.
+
+There are several teams at your company who work together to support the
+product. Three in particular are relevant to this case study: (1) Content and
+Integrations, who support curation of the content library as well as integrating
+customer content into the system, (2) Web, who supports the frontend Web
+application with which users interface, and (3) Platform, who supports the
+application backend and infrastructure.
+
+You are a software engineer on the Platform team, a squad that is growing and
+taking on more responsibility as the organization looks to scale up, implement
+innovative new training resources, and expand its global reach.
+
+One of your team's projects for this quarter is to modernize the product's user
+activity/progress tracking system. Currently the application is deployed as a
+monolithic Web app which tracks a user's progress by maintaining a JSON file for
+each user, an architecture which is problematic for several reasons.
+
+Additionally, a new team is forming within your organization to create a mobile
+version of the Web product, which will allow users to access training on a
+smartphone or tablet, and it is a business requirement that user progress be
+synchronized across platforms (Web, Android, iOS, etc.).
+
+The goal is for the Platform team to create a backend User Activity service with
+a GraphQL API so that the Web team can migrate their code and data to the new
+GraphQL service, and so that any new mobile apps can use the same GraphQL API as
+the Web and share a unified store of user data and progress.
+
+For this exercise, you will implement one or more GraphQL services within an
+Apollo Federation supergraph which provide an API for tracking users' activity
+and progress on their corporate training.
+
+This repo represents scaffolding into which your new services should be written
+(more details in the sections below).
+
+Your focus should be on the GraphQL API, Node.js backend application layer, data
+stores, and other distributed system components as needed. You need not provide
+a fully production-worthy ready-to-deploy solution---use mocks and fakes as
+appropriate---but you should provide working code for the most essential parts
+of the application and be prepared to explain the proposed architecture in
+depth. Our goal is for this endeavor to be a conversation, not an exam.
+
 ## Repository Setup
 
 This is an [Nx](https://nx.dev/) monorepo with an
