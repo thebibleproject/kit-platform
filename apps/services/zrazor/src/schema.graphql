@@ -1,0 +1,37 @@
+type Query {
+    articles: [Article!]!
+    articleById(id: ID!): Article
+
+    quizzes: [Quiz!]!
+    quizById(id: ID!): Quiz
+
+    videos: [Video!]!
+    videoById(id: ID!): Video
+}
+
+type Article {
+    id: ID!
+    title: String!
+    uri: String
+    description: String
+}
+
+type Quiz {
+    id: ID!
+    title: String!
+    description: String
+    questions: [QuizQuestion!]!
+}
+
+type QuizQuestion {
+    id: ID!
+    questionText: String!
+}
+
+type Video {
+    id: ID!
+    title: String!
+    uri: String
+    description: String
+    duration: Int!
+}
