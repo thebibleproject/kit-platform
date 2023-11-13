@@ -13,9 +13,15 @@
                 "outputPath": "dist/apps/services/auth",
                 "main": "apps/services/auth/src/main.ts",
                 "tsConfig": "apps/services/auth/tsconfig.app.json",
-                "assets": ["apps/services/auth/src/assets"],
                 "isolatedConfig": true,
-                "webpackConfig": "apps/services/auth/webpack.config.js"
+                "webpackConfig": "apps/services/auth/webpack.config.js",
+                "assets": [
+                    {
+                        "glob": "*.graphql",
+                        "input": "apps/services/content/src",
+                        "output": "."
+                    }
+                ]
             },
             "configurations": {
                 "production": {

@@ -1,21 +1,42 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import express from 'express';
+import { ApolloServer } from '@apollo/server';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { login } from '@kit-platform/user-access';
+import * as fs from 'fs';
+import gql from 'graphql-tag';
 import * as path from 'path';
 
-const app = express();
+// Schema
+// ------
+const typeDefs = gql(
+    fs.readFileSync(path.resolve('./dist/apps/services/auth/schema.graphql'), {
+        encoding: 'utf8',
+    })
+);
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+// Resolvers
+// ---------
+const resolvers = {
+    Mutation: {
+        login: async (_, { username, password }) => {
+            try {
+                const { accessToken } = await login(username, password);
+                return { accessToken, success: true };
+            } catch (error) {
+                return { success: false };
+            }
+        },
+    },
+};
 
-app.get('/api', (req, res) => {
-    res.send({ message: 'Welcome to auth!' });
+const server = new ApolloServer({
+    schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
 });
 
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+(async () => {
+    const { url } = await startStandaloneServer(server, {
+        listen: { port: parseInt(process.env.AUTH_SERVICE_PORT) || 6120 },
+    });
+
+    console.log('Auth server ready at:', url);
+})();
