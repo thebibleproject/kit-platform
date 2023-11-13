@@ -18,7 +18,7 @@
                 "assets": [
                     {
                         "glob": "*.graphql",
-                        "input": "apps/services/content/src",
+                        "input": "apps/services/auth/src",
                         "output": "."
                     }
                 ]

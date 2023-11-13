@@ -34,7 +34,7 @@
         },
         "compile-supergraph": {
             "executor": "nx:run-commands",
-            "outputs": ["./supergraph.graphql"],
+            "outputs": ["apps/gateway/supergraph.graphql"],
             "options": {
                 "commands": [
                     "npx -p @apollo/rover rover supergraph compose --config ./supergraph-config.yml > apps/gateway/supergraph.graphql",
