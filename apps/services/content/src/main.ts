@@ -9,7 +9,7 @@ import * as path from 'path';
 // ------
 const typeDefs = gql(
     fs.readFileSync(
-        path.resolve('./dist/apps/services/zrazor/schema.graphql'),
+        path.resolve('./dist/apps/services/content/schema.graphql'),
         { encoding: 'utf8' }
     )
 );
@@ -89,8 +89,8 @@ const server = new ApolloServer({
 
 (async () => {
     const { url } = await startStandaloneServer(server, {
-        listen: { port: parseInt(process.env.ZRAZOR_SERVICE_PORT) || 6110 },
+        listen: { port: parseInt(process.env.CONTENT_SERVICE_PORT) || 6110 },
     });
 
-    console.log('Zrazor server ready at:', url);
+    console.log('Content server ready at:', url);
 })();

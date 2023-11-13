@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-    displayName: 'services-zrazor',
+    displayName: 'services-content',
     preset: '../../../jest.preset.js',
     globals: {
         'ts-jest': {
@@ -12,5 +12,5 @@ export default {
         '^.+\\.[tj]s$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'js', 'html'],
-    coverageDirectory: '../../../coverage/apps/services/zrazor',
+    coverageDirectory: '../../../coverage/apps/services/content',
 };

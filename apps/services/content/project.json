@@ -1,7 +1,7 @@
 {
-    "name": "services-zrazor",
+    "name": "services-content",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/services/zrazor/src",
+    "sourceRoot": "apps/services/content/src",
     "projectType": "application",
     "targets": {
         "build": {
@@ -10,15 +10,15 @@
             "options": {
                 "target": "node",
                 "compiler": "tsc",
-                "outputPath": "dist/apps/services/zrazor",
-                "main": "apps/services/zrazor/src/main.ts",
-                "tsConfig": "apps/services/zrazor/tsconfig.app.json",
+                "outputPath": "dist/apps/services/content",
+                "main": "apps/services/content/src/main.ts",
+                "tsConfig": "apps/services/content/tsconfig.app.json",
                 "isolatedConfig": true,
-                "webpackConfig": "apps/services/zrazor/webpack.config.js",
+                "webpackConfig": "apps/services/content/webpack.config.js",
                 "assets": [
                     {
                         "glob": "*.graphql",
-                        "input": "apps/services/zrazor/src",
+                        "input": "apps/services/content/src",
                         "output": "."
                     }
                 ]
@@ -34,11 +34,11 @@
         "serve": {
             "executor": "@nrwl/js:node",
             "options": {
-                "buildTarget": "services-zrazor:build"
+                "buildTarget": "services-content:build"
             },
             "configurations": {
                 "production": {
-                    "buildTarget": "services-zrazor:build:production"
+                    "buildTarget": "services-content:build:production"
                 }
             }
         },
@@ -46,14 +46,14 @@
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
-                "lintFilePatterns": ["apps/services/zrazor/**/*.ts"]
+                "lintFilePatterns": ["apps/services/content/**/*.ts"]
             }
         },
         "test": {
             "executor": "@nrwl/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
             "options": {
-                "jestConfig": "apps/services/zrazor/jest.config.ts",
+                "jestConfig": "apps/services/content/jest.config.ts",
                 "passWithNoTests": true
             },
             "configurations": {
