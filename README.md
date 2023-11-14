@@ -85,6 +85,7 @@ You can run and experiment with the supergraph by installing the dependencies
 (`npm i`; Node.js 20 is recommended) and executing the following commands in
 two separate terminal windows (the Gateway is a bit of a prima dona and has to run separately):
 
+-   `cp .env.example .env` (**Don't skip this step!**)
 -   `npm run start`
 -   `npm run start:gateway`
 
