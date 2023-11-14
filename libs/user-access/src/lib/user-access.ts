@@ -3,6 +3,16 @@ import { InvalidLoginError, LoginResponse } from './types';
 // But just to be clear... we would _never_ in real life 😉
 const ACCOUNTS = new Map([
     [
+        'magnusandy@gmail.com',
+        {
+            id: 1,
+            username: 'magnusandy@gmail.com',
+            password: 'password123',
+            firstName: 'Andrew',
+            lastName: 'Magnus',
+        }
+    ],
+    [
         'mubatt@wyopub.com',
         {
             id: 313,
