@@ -4,6 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Wrapper } from '../components/Wrapper';
 import styled from 'styled-components';
 import { Aside } from '../components/Aside';
+import { Columns } from '../components/Columns';
 
 const ArticleWrapper = styled.article`
     h1 {
@@ -32,13 +33,6 @@ const HeroImage = styled.img`
     aspect-ratio: 16/4;
     object-fit: cover;
     margin-bottom: 12px;
-`;
-
-const Columns = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 24px;
-    align-items: start;
 `;
 
 export const Article = () => {
@@ -175,6 +169,11 @@ export const Article = () => {
                         <li>
                             <a href={`${location.pathname}#conclusion`}>
                                 Conclusion that You Didn't Need Me to Tell You
+                            </a>
+                        </li>
+                        <li>
+                            <a href={`${location.pathname}#quiz`}>
+                                Take the Quiz
                             </a>
                         </li>
                     </ul>

@@ -11,6 +11,7 @@ import { Home } from './routes/Home';
 import { AuthProvider } from './providers/Auth';
 import { Login } from './routes/Login';
 import { Article } from './routes/Article';
+import { Video } from './routes/Video';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: '/articles/:slug',
                 element: <Article />,
+            },
+            {
+                path: '/videos/:slug',
+                element: <Video />,
             },
         ],
     },

@@ -42,4 +42,5 @@ type Video {
     description: String
     duration: Int!
     image: String
+    youtubeId: String
 }
