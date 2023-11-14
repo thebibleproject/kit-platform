@@ -5,6 +5,8 @@ import { gql, useQuery } from '@apollo/client';
 import { Wrapper } from '../components/Wrapper';
 import { Columns } from '../components/Columns';
 import { Aside } from '../components/Aside';
+import { QuizItem } from '../components/QuizItem';
+import { Quiz } from '../components/Quiz';
 
 const Frame = styled.iframe`
     width: 100%;
@@ -29,6 +31,7 @@ export const Video = () => {
                     image
                     youtubeId
                     description
+                    quizId
                 }
             }
         `,
@@ -52,6 +55,7 @@ export const Video = () => {
                 <Meta>
                     <h1>{data?.video.title}</h1>
                     <p>{data?.video.description}</p>
+                    <Quiz id={data?.video.quizId} />
                 </Meta>
                 <Aside id={data?.video.id}>
                     <h2>Table of Contents</h2>

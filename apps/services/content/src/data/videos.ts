@@ -8,6 +8,7 @@ export const videos = [
         duration: 23 * 60 + 7,
         image: 'https://images.unsplash.com/flagged/photo-1558963675-94dc9c4a66a9?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         youtubeId: 'rLDgQg6bq7o',
+        quizId: '1',
     },
     {
         id: '202',
@@ -18,6 +19,7 @@ export const videos = [
         duration: 17 * 60 + 23,
         image: 'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         youtubeId: '7LOF7KM7UhY',
+        quizId: '1',
     },
     {
         id: '203',
@@ -28,6 +30,7 @@ export const videos = [
         duration: 19 * 60 + 12,
         image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         youtubeId: 'yJe4kFS1LqM',
+        quizId: '1',
     },
     {
         id: '204',
@@ -38,5 +41,6 @@ export const videos = [
         duration: 21 * 60 + 34,
         image: 'https://images.unsplash.com/photo-1585659722983-3a675dabf23d?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         youtubeId: 'wwmdf5m9khg',
+        quizId: '1',
     },
 ];

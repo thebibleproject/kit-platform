@@ -5,6 +5,7 @@ import { Wrapper } from '../components/Wrapper';
 import styled from 'styled-components';
 import { Aside } from '../components/Aside';
 import { Columns } from '../components/Columns';
+import { Quiz } from '../components/Quiz';
 
 const ArticleWrapper = styled.article`
     h1 {
@@ -45,6 +46,7 @@ export const Article = () => {
                     id
                     title
                     image
+                    quizId
                 }
             }
         `,
@@ -146,6 +148,7 @@ export const Article = () => {
                         commodo ultricies. Ut porttitor ante et justo
                         sollicitudin malesuada. Nullam libero erat, feugiat.
                     </p>
+                    <Quiz id={data?.article.quizId} />
                 </ArticleWrapper>
                 <Aside id={data?.article.id}>
                     <h2>Table of Contents</h2>

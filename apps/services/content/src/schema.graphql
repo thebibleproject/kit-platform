@@ -21,6 +21,7 @@ type Article {
     description: String
     image: String
     slug: String
+    quizId: String
 }
 
 type Quiz {
@@ -43,4 +44,5 @@ type Video {
     duration: Int!
     image: String
     youtubeId: String
+    quizId: String
 }
