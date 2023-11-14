@@ -83,16 +83,17 @@ functionality.
 
 You can run and experiment with the supergraph by installing the dependencies
 (`npm i`; Node.js 20 is recommended) and executing the following commands in
-three separate terminal windows:
+two separate terminal windows (the Gateway is a bit of a prima dona and has to run separately):
 
--   `npx nx serve services-auth`
--   `npx nx serve services-content`
--   `npx nx serve gateway`
+-   `npm run start`
+-   `npm run start:gateway`
 
 Then navigate to http://localhost:6050 to query your supergraph.
 
 Finding a better way to serve everything with a single command is left as an
 exercise.
+
+> **Heads up**: When you add  a new service, you will need to update  the `--projects` flag in the npm start command to include your new service.  
 
 ## Task
 
