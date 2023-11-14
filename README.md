@@ -132,3 +132,4 @@ Docker Compose stacks or other locally emulated cloud resources.
 -   You may notice that this monorepo is on an older version of Nx. Upgrading
     the dependencies is allowed and even encouraged! Just be prepared to explain
     the changes.
+- If you notice caching issues you can run `npx nx reset` to clear the Nx cache.
