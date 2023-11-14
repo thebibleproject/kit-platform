@@ -4,6 +4,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react';
 
 import { Logo } from './Logo';
 import { ProfilePhoto } from './ProfilePhoto';
+import { useUser } from '../providers/Auth';
 
 const NavigationContainer = styled.nav`
     width: 100%;
@@ -76,6 +77,8 @@ const Profile = styled.div`
 `;
 
 export const Navigation = () => {
+    const user = useUser();
+
     return (
         <NavigationContainer>
             <LogoContainer>
@@ -93,9 +96,9 @@ export const Navigation = () => {
             </SearchContainer>
             <Profile>
                 <p>
-                    Welcome Back, <strong>Matt</strong>
+                    Welcome Back, <strong>{user.firstName}</strong>
                 </p>
-                <ProfilePhoto email="mubatt@wyopub.com" />
+                <ProfilePhoto email={user.username} />
             </Profile>
         </NavigationContainer>
     );

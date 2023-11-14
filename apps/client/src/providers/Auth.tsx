@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, ApolloError } from '@apollo/client';
 
 type AuthContextType = {
     accessToken: string;
@@ -61,9 +61,21 @@ export const useUser = () => {
     return user;
 };
 
-export const useLogin = () => {
+type LoginFunction = (username: string, password: string) => Promise<void>;
+
+export const useLogin = (): [
+    LoginFunction,
+    {
+        loading: boolean;
+        data: {
+            accessToken: string;
+            user: User;
+        };
+        error: ApolloError;
+    }
+] => {
     const { setUser } = useContext(AuthContext);
-    const [mutate, { data, loading }] = useMutation(gql`
+    const [mutate, { data, loading, error }] = useMutation(gql`
         mutation Login($username: String!, $password: String!) {
             login(username: $username, password: $password) {
                 accessToken
@@ -77,7 +89,7 @@ export const useLogin = () => {
         }
     `);
 
-    const login = (username: string, password: string) => {
+    const login: LoginFunction = (username: string, password: string) => {
         return mutate({
             variables: {
                 username,
@@ -94,9 +106,10 @@ export const useLogin = () => {
         {
             loading,
             data: {
-                accessToken: data.login.accessToken,
-                user: data.login.user,
+                accessToken: data?.login.accessToken,
+                user: data?.login.user,
             },
+            error,
         },
     ];
 };

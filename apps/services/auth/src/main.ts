@@ -5,6 +5,7 @@ import { login } from '@kit-platform/user-access';
 import * as fs from 'fs';
 import gql from 'graphql-tag';
 import * as path from 'path';
+import { GraphQLError } from 'graphql/error';
 
 // Schema
 // ------
@@ -20,10 +21,10 @@ const resolvers = {
     Mutation: {
         login: async (_, { username, password }) => {
             try {
-                const { accessToken } = await login(username, password);
-                return { accessToken, success: true };
+                const { accessToken, user } = await login(username, password);
+                return { accessToken, user, success: true };
             } catch (error) {
-                return { success: false };
+                throw new GraphQLError(error.message);
             }
         },
     },
