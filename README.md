@@ -46,7 +46,9 @@ the Web and share a unified store of user data and progress.
 
 For this exercise, you will implement one or more GraphQL services within an
 Apollo Federation supergraph which provide an API for tracking users' activity
-and progress on their corporate training.
+and progress on their corporate training. 
+
+For the sake of simplicity, assume that relationships between training material (audio, video, interactive lessons, etc.) are flat - meaning you don't need to deal with resources that contain other resources. A user has a relationship with a resource. Your system tracks the progress of that relationship, including it's progress, completion state, and whether the user has bookmarked the resource.
 
 This repo represents scaffolding into which your new services should be written
 (more details in the sections below).
