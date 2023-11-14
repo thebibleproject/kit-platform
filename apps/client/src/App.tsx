@@ -8,6 +8,8 @@ import {
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from './routes/Root';
 import { Home } from './routes/Home';
+import { AuthProvider } from './providers/Auth';
+import { Login } from './routes/Login';
 
 const router = createBrowserRouter([
     {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
         ],
+    },
+    {
+        path: '/login',
+        element: <Login />,
     },
 ]);
 
@@ -34,7 +40,9 @@ const App = () => {
 
     return (
         <ApolloProvider client={client}>
-            <RouterProvider router={router} />
+            <AuthProvider>
+                <RouterProvider router={router} />
+            </AuthProvider>
         </ApolloProvider>
     );
 };

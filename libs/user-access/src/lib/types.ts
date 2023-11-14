@@ -3,6 +3,12 @@
  */
 export interface LoginResponse {
     accessToken: string;
+    user: {
+        id: number;
+        username: string;
+        firstName: string;
+        lastName: string;
+    };
 }
 
 /**
