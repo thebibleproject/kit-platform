@@ -15,8 +15,9 @@ type Query {
 type Article {
     id: ID!
     title: String!
-    uri: String
     description: String
+    image: String
+    slug: String
 }
 
 type Quiz {
@@ -34,7 +35,8 @@ type QuizQuestion {
 type Video {
     id: ID!
     title: String!
-    uri: String
+    slug: String
     description: String
     duration: Int!
+    image: String
 }

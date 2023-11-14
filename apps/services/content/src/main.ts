@@ -5,6 +5,9 @@ import * as fs from 'fs';
 import gql from 'graphql-tag';
 import * as path from 'path';
 
+import { articles } from './data/articles';
+import { videos } from './data/videos';
+
 // Schema
 // ------
 const typeDefs = gql(
@@ -17,13 +20,6 @@ const typeDefs = gql(
 // Hardcoded Data
 // --------------
 const data = {
-    articles: [
-        {
-            id: '100',
-            title: 'Edible Espresso Pucks',
-            uri: 'https://www.jameshoffmann.co.uk/weird-coffee-science/edible-espresso-pucks',
-        },
-    ],
     quizzes: [
         {
             id: '1',
@@ -47,38 +43,23 @@ const data = {
             ],
         },
     ],
-    videos: [
-        {
-            id: '1',
-            title: 'How I Dial-In Espresso - Part #1',
-            description: 'The first in a series about dialing in espresso',
-            uri: 'https://www.youtube.com/watch?v=lFwJF-_SUr0&list=PLxz0FjZMVOl3ksLTyWsWNFdU1b73w1BUW',
-            duration: 7 * 60 + 8,
-        },
-        {
-            id: '2',
-            title: 'How I Dial In Espresso - Episode 2',
-            uri: 'https://www.youtube.com/watch?v=1eK0eidOA_U&list=PLxz0FjZMVOl3ksLTyWsWNFdU1b73w1BUW&index=2',
-            duration: 9 * 60 + 56,
-        },
-    ],
 };
 
 // Resolvers
 // ---------
 const resolvers = {
     Query: {
-        articles: () => data.articles,
+        articles: () => articles,
         articleById: (_, { id }) => {
-            return data.articles.find((article) => article.id === id);
+            return articles.find((article) => article.id === id);
         },
         quizzes: () => data.quizzes,
         quizById: (_, { id }) => {
             return data.quizzes.find((quiz) => quiz.id === id);
         },
-        videos: () => data.videos,
+        videos: () => videos,
         videoById: (_, { id }) => {
-            return data.videos.find((video) => video.id === id);
+            return videos.find((video) => video.id === id);
         },
     },
 };

@@ -1,4 +1,4 @@
-# Kit Platform (Take-Home Project)
+# Kit Platform (Take-Root Project)
 
 Thank you for taking the time to interview with the Platform Squad at
 BibleProject! In this project, you'll be presented with a fictional scenario for
