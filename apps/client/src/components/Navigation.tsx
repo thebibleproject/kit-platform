@@ -5,6 +5,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react';
 import { Logo } from './Logo';
 import { ProfilePhoto } from './ProfilePhoto';
 import { useUser } from '../providers/Auth';
+import { Link } from 'react-router-dom';
 
 const NavigationContainer = styled.nav`
     width: 100%;
@@ -81,10 +82,12 @@ export const Navigation = () => {
 
     return (
         <NavigationContainer>
-            <LogoContainer>
-                <Logo />
-                <h1>Kit</h1>
-            </LogoContainer>
+            <Link to="/">
+                <LogoContainer>
+                    <Logo />
+                    <h1>Kit</h1>
+                </LogoContainer>
+            </Link>
             <Menu>
                 <li>Top Performers</li>
                 <li>Videos</li>

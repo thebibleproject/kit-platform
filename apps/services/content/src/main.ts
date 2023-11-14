@@ -50,16 +50,20 @@ const data = {
 const resolvers = {
     Query: {
         articles: () => articles,
-        articleById: (_, { id }) => {
-            return articles.find((article) => article.id === id);
+        article: (_, { id, slug }) => {
+            return articles.find(
+                (article) => article.id === id || article.slug === slug
+            );
         },
         quizzes: () => data.quizzes,
         quizById: (_, { id }) => {
             return data.quizzes.find((quiz) => quiz.id === id);
         },
         videos: () => videos,
-        videoById: (_, { id }) => {
-            return videos.find((video) => video.id === id);
+        video: (_, { id, slug }) => {
+            return videos.find(
+                (video) => video.id === id || video.slug === slug
+            );
         },
     },
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, ScrollRestoration } from 'react-router-dom';
 
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
@@ -17,6 +17,7 @@ export const Root = () => {
             <Navigation />
             <Outlet />
             <Footer />
+            <ScrollRestoration />
         </div>
     );
 };

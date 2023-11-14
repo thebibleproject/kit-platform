@@ -10,6 +10,7 @@ import { Root } from './routes/Root';
 import { Home } from './routes/Home';
 import { AuthProvider } from './providers/Auth';
 import { Login } from './routes/Login';
+import { Article } from './routes/Article';
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
+            },
+            {
+                path: '/articles/:slug',
+                element: <Article />,
             },
         ],
     },

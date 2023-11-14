@@ -6,13 +6,13 @@ extend schema
 
 type Query {
     articles: [Article!]!
-    articleById(id: ID!): Article
+    article(id: ID, slug: String): Article
 
     quizzes: [Quiz!]!
     quizById(id: ID!): Quiz
 
     videos: [Video!]!
-    videoById(id: ID!): Video
+    video(id: ID, slug: String): Video
 }
 
 type Article {
