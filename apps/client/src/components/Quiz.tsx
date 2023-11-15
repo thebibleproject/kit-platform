@@ -60,6 +60,7 @@ export const Quiz = ({ id }) => {
                 {data?.quizById.questions.map((question, idx) => (
 
                     <QuizItem
+                        key={question.id}
                         selected={!!question.progress?.completedTimestamp}
                         index={idx}
                         question={question.questionText}

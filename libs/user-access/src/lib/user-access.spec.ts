@@ -5,7 +5,7 @@ import { login } from './user-access';
 
 describe('login', () => {
     it('should return a token when given correct credentials', async () => {
-        const { accessToken } = await login('admin', 'admin');
+        const { accessToken } = await login('magnusandy@gmail.com', 'password123');
         expect(accessToken).toEqual('token123');
     });
 });
