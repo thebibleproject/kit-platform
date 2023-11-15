@@ -22,6 +22,7 @@ export type UserProgressId = Pick<UserProgressData, 'userId' | "contentId">;
 
 export type UserProgressDataUpdates = Partial<Omit<UserProgressData, "userId" | "contentId">>;
 
+//utilizing interfaces allows for easier testing and mocking in tests
 export interface UserProgressRepository {
     save(userProgressData: UserProgressData): Promise<void>;
 

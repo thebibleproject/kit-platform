@@ -28,6 +28,14 @@ export class ProgressPostgresRepository implements UserProgressRepository {
         await this.datasource.getRepository(UserProgressRecord).save(dataToRecord(userProgressData));
     }
 
+    /**
+     * this ends up with a query something like this:
+     * SELECT * FROM "user_progress_record" "userProgress"
+     * WHERE ("userProgress"."userId" = id1.userId AND "userProgress"."contentId" = id1.contentId)
+     * OR ("userProgress"."userId" = id2.userId AND "userProgress"."contentId" = id2.contentId)
+     * OR ... rest of ids
+     * @param ids
+     */
     async loadByIds(ids: UserProgressData[]): Promise<UserProgressData[]> {
         return this.datasource
         .getRepository(UserProgressRecord)
