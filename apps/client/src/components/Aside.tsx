@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import styled from 'styled-components';
 import { CheckCircle } from '@phosphor-icons/react';
+import {useUser} from "../providers/Auth";
 
 const AsideWrapper = styled.aside`
     width: 100%;
@@ -63,45 +64,42 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 });
 
 export const Aside = ({ id, children }) => {
-    // TODO: implement activity
-    // const { data } = useQuery(`
-    //   query Activity($id: ID!) {
-    //      activity(id: $id) {
-    //          id
-    //          updatedAt
-    //          createdAt
-    //          content {
-    //              id
-    //              __typename
-    //              ...on Video {
-    //                  title
-    //              }
-    //              ...on Article {
-    //                  title
-    //              }
-    //          }
-    //      }
-    //   }
-    // `)
-    // TODO: this is mock until we implement Activity service
-    const data = {
-        activity: {
-            id: '123',
-            createdAt: new Date(),
-        },
-    };
-
-    const shouldShowActivity = Math.random() > 0.5;
-
+   const { data, loading, error } = useActivityData(id);
     return (
         <AsideWrapper>
-            {shouldShowActivity && (
+            {!loading && !error && data?.userProgress.completedTimestamp && (
                 <ActivityBar>
                     <CheckCircle weight="bold" color="#0c0c0e" size={24} />
-                    Completed on {formatter.format(data.activity.createdAt)}
+                    Completed on {formatter.format(new Date(data.userProgress.completedTimestamp))}
                 </ActivityBar>
             )}
             {children}
         </AsideWrapper>
     );
 };
+
+function useActivityData(contentId: string) {
+    const userId = useUser()?.id;
+    const { data, error, loading } = useQuery(
+        gql`
+            query GetData($userId: ID!, $contentId: ID!) {
+                userProgress(userId: $userId, contentId: $contentId) {
+                    userId
+                    contentId
+                    completedTimestamp
+                }
+            }
+        `,
+        {
+            variables: {
+                userId,
+                contentId,
+            }
+        }
+    );
+    return {
+        data,
+        error,
+        loading,
+    };
+}

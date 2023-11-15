@@ -5,12 +5,25 @@ extend schema
     )
 
 type Query {
-    userProgress(userId: ID!, contentId: ID!): UserProgressData
+    userProgress(userId: ID!, contentId: ID!): UserProgressData!
+}
+
+type Mutation {
+    saveProgress(input: UpdateProgressInput!): UserProgressData!
+}
+
+input UpdateProgressInput {
+    userId: ID!
+    contentId: ID!
+    progressPercentInt: Int
+    completedTimestamp: Float
+    isBookmarked: Boolean
+
 }
 
 type Content @key(fields: "id") @interfaceObject {
     id: ID!
-    progress(userId: String!): UserProgressData
+    progress(userId: ID!): UserProgressData
 }
 
 
@@ -18,6 +31,6 @@ type UserProgressData @key(fields: "userId contentId") {
     userId: ID!
     contentId: ID!
     progressPercentInt: Int!
-    isCompleted: Boolean!
+    completedTimestamp: Float
     isBookmarked: Boolean!
 }

@@ -1,8 +1,9 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React, {useCallback} from 'react';
+import {gql, useMutation, useQuery} from '@apollo/client';
 import styled from 'styled-components';
 
 import { QuizItem } from './QuizItem';
+import {useUser} from "../providers/Auth";
 
 const QuizContainer = styled.div`
     margin: 24px 0;
@@ -20,15 +21,19 @@ const QuizContainer = styled.div`
 `;
 
 export const Quiz = ({ id }) => {
-    const { data } = useQuery(
+    const userId = useUser()?.id;
+    const { data, refetch} = useQuery(
         gql`
-            query Quiz($id: ID!) {
+            query Quiz($id: ID!, $userId: ID!) {
                 quizById(id: $id) {
                     id
                     title
                     questions {
                         id
                         questionText
+                        progress(userId: $userId) {
+                            completedTimestamp
+                        }
                     }
                 }
             }
@@ -36,21 +41,26 @@ export const Quiz = ({ id }) => {
         {
             variables: {
                 id,
+                userId,
             },
         }
     );
+    const markQuestionComplete = useMarkQuestionComplete();
 
-    const onSelect = (id) => {
-        console.log(id);
-        // TODO: wire this up to Activity
+    const onSelect = async (id) => {
+        //pretty simplistic approach to marking a question complete, but i wanted to keep it simple and have
+        //some sort of interaction that works
+        await markQuestionComplete(id);
+        refetch()
     };
-
     return (
         <QuizContainer id="quiz">
             <h2>{data?.quizById.title}</h2>
             <div>
                 {data?.quizById.questions.map((question, idx) => (
+
                     <QuizItem
+                        selected={!!question.progress?.completedTimestamp}
                         index={idx}
                         question={question.questionText}
                         id={question.id}
@@ -61,3 +71,28 @@ export const Quiz = ({ id }) => {
         </QuizContainer>
     );
 };
+
+function useMarkQuestionComplete() {
+    const userId = useUser()?.id;
+    const [markQuestionComplete] = useMutation(gql`
+        mutation MarkQuestionComplete($input: UpdateProgressInput!) {
+            saveProgress(input: $input) {
+                completedTimestamp
+            }
+        }
+    `);
+    return useCallback(async (questionId: string) => {
+        try {
+            const input = {
+                userId,
+                contentId: questionId,
+                completedTimestamp: new Date().valueOf(),
+            };
+            await markQuestionComplete({ variables: { input } });
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }, [markQuestionComplete, userId,]);
+
+}

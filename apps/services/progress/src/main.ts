@@ -5,19 +5,24 @@ import * as fs from 'fs';
 import gql from 'graphql-tag';
 import * as path from 'path';
 import {
-    UserProgressData,
+    UserProgressData, UserProgressDataUpdates,
     UserProgressId,
-    UserProgressRepositoryStub,
     UserProgressService
 } from "../../../../libs/progress/src";
 import DataLoader from "dataloader";
 import {verifyAccessToProgress} from "@kit-platform/user-access";
 import {GraphQLError} from "graphql/error";
+import {DataSource} from "typeorm";
+import {
+    ProgressPostgresRepository,
+    UserProgressRecord
+} from "../../../../libs/progress/src/infrastructure/progress.postgres.repository";
 
 type ProgressLoader = DataLoader<UserProgressId, UserProgressData>;
 type Context = {
     authToken: string | null;
-    progressLoader: ProgressLoader
+    progressLoader: ProgressLoader;
+    service: UserProgressService;
 }
 
 // Schema
@@ -29,7 +34,18 @@ const typeDefs = gql(
     )
 );
 
-const service = new UserProgressService(new UserProgressRepositoryStub());
+//set up using docker compose file run `npm start:db` to start the database
+export const ProgressDatasource = new DataSource({
+    type: "postgres",
+    host: "localhost",
+    port: 5432,
+    username: "kit_admin",
+    password: "password",
+    database: "kit",
+    synchronize: true, //this automatically creates the tables for based on the entities, not ideal for production, but works well for development
+    logging: false,
+    entities: [UserProgressRecord],
+});
 
 
 // Resolvers
@@ -38,9 +54,23 @@ const resolvers = {
     Query: {
         userProgress: async (_, {userId, contentId}, _context) => {
             const context = _context as Context;
-
             const userProgress = await context.progressLoader.load({userId, contentId});
             return userProgressDataToSchema(userProgress)
+        }
+    },
+    Mutation: {
+        saveProgress: async (_, {input}, _context) => {
+            const context = _context as Context;
+            const {userId, contentId, progressPercentInt, completedTimestamp, isBookmarked} = input;
+            const completedDate = completedTimestamp ? new Date(completedTimestamp) : undefined;
+            const canAccess = await verifyAccessToProgress(context.authToken, userId);
+            if(!canAccess) {
+                throw new GraphQLError('User does not have access to this content');
+            }
+            const id: UserProgressId = {userId, contentId};
+            const updates: UserProgressDataUpdates = {progressPercentInt, completedDate, isBookmarked};
+            const updated = await context.service.save(id, updates);
+            return userProgressDataToSchema(updated);
         }
     },
     Content: {
@@ -55,7 +85,6 @@ const resolvers = {
             return userProgressDataToSchema(userProgress);
         }
     },
-    //todo federated resolver
 };
 
 const server = new ApolloServer({
@@ -63,6 +92,9 @@ const server = new ApolloServer({
 });
 
 (async () => {
+    const database = await ProgressDatasource.initialize();
+    const repository = new ProgressPostgresRepository(database);
+    const service = new UserProgressService(repository);
     const {url} = await startStandaloneServer(server, {
         context: async ({req}): Promise<Context> => {
             const authToken = req.headers.authorization || null;
@@ -70,6 +102,7 @@ const server = new ApolloServer({
             //in the resolvers
             return {
                 authToken,
+                service,
                 //we want to create a new dataloader for each request, so that we can batch and cache the requests but not share the cache between requests
                 progressLoader: createProgressLoader(service)
             }
@@ -101,7 +134,7 @@ function userProgressDataToSchema(userProgress: UserProgressData): any {
         userId: userProgress.userId,
         contentId: userProgress.contentId,
         progressPercentInt: userProgress.progressPercentInt,
-        isCompleted: userProgress.isComplete,
+        completedTimestamp: userProgress.completedDate ? userProgress.completedDate.valueOf() : null,
         isBookmarked: userProgress.isBookmarked,
     }
 }

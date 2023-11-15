@@ -17,8 +17,6 @@ type Query {
 
 interface Content @key(fields: "id") {
     id: ID!
-    title: String!
-    description: String
 
 }
 
@@ -38,7 +36,7 @@ type Quiz implements Content @key(fields: "id"){
     questions: [QuizQuestion!]!
 }
 
-type QuizQuestion {
+type QuizQuestion implements Content @key(fields: "id"){
     id: ID!
     questionText: String!
 }

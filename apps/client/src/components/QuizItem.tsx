@@ -7,7 +7,6 @@ const Button = styled.button`
     border-radius: 8px;
     border: 1px solid #c9c9c9;
     appearance: none;
-    background: #161718;
     cursor: pointer;
     font-size: 18px;
     text-align: left;
@@ -34,14 +33,20 @@ export const QuizItem = ({
     question,
     id,
     onClick,
+    selected,
 }: {
     index: number;
     question: string;
     id: string;
     onClick: (id: string) => void;
+    selected: boolean;
 }) => {
     return (
         <Button
+            style={{
+                background: selected ? '#ff009d' : '#161718',
+                color: selected ? '#fff' : '#efefef',
+            }}
             onClick={(e) => {
                 e.preventDefault();
                 return onClick(id);
