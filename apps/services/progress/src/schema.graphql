@@ -5,10 +5,19 @@ extend schema
     )
 
 type Query {
-    tests: [Test!]!
+    userProgress(userId: ID!, contentId: ID!): UserProgressData
 }
 
-type Test {
+type Content @key(fields: "id") @interfaceObject {
     id: ID!
-    name: String!
+    progress(userId: String!): UserProgressData
+}
+
+
+type UserProgressData @key(fields: "userId contentId") {
+    userId: ID!
+    contentId: ID!
+    progressPercentInt: Int!
+    isCompleted: Boolean!
+    isBookmarked: Boolean!
 }

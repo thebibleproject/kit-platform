@@ -15,7 +15,14 @@ type Query {
     video(id: ID, slug: String): Video
 }
 
-type Article {
+interface Content @key(fields: "id") {
+    id: ID!
+    title: String!
+    description: String
+
+}
+
+type Article implements Content @key(fields: "id") {
     id: ID!
     title: String!
     description: String
@@ -24,7 +31,7 @@ type Article {
     quizId: String
 }
 
-type Quiz {
+type Quiz implements Content @key(fields: "id"){
     id: ID!
     title: String!
     description: String
@@ -36,11 +43,11 @@ type QuizQuestion {
     questionText: String!
 }
 
-type Video {
+type Video implements Content @key(fields: "id"){
     id: ID!
     title: String!
-    slug: String
     description: String
+    slug: String
     duration: Int!
     image: String
     youtubeId: String
