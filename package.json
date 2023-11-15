@@ -43,7 +43,7 @@
     "dependencies": {
         "@apollo/client": "^3.8.7",
         "@apollo/gateway": "2.3.0",
-        "@apollo/server": "4.3.0",
+        "@apollo/server": "4.9.3",
         "@apollo/subgraph": "2.0.3",
         "@phosphor-icons/react": "^2.0.14",
         "axios": "1.0.0",
